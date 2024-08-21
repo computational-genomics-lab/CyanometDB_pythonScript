@@ -1,0 +1,26 @@
+import pandas as pd
+import numpy as np
+
+# Load data from CSV files
+A = pd.read_csv('sample_10intensity.csv', encoding='ISO-8859-1')
+B = pd.read_csv('ref.csv', encoding='ISO-8859-1')
+
+# Convert data to dictionaries
+sample_dict = dict(zip(A['sample_id'], A['sample_mz']))
+ref_dict = dict(zip(B['name'], B['ref_mz']))
+'''
+# Open file for writing
+filename = 'allspectra.csv'
+with open(filename, 'w') as f:
+    # Write header row
+    f.write('name,sample_mz,ref_mz,match\n')
+'''
+    # Iterate over sample and reference dictionaries
+for name, mz in sample_dict.items():
+#	print(name)
+	for ref_name, ref_mz in ref_dict.items():
+           # Test for approximate equality using numpy.isclose
+		if np.isclose(mz, ref_mz, rtol=1e-05, atol=1e-08, equal_nan=False):
+                # Write matching values to file
+			#f.write(name + ',' + str(mz) + ',' + str(ref_mz) + ',''\n')'
+			print (ref_name,mz,ref_mz,'\n')
